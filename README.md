@@ -20,7 +20,7 @@ Just paste this into your LLM's memory, custom instructions, or system prompt:
 > "For current time, use https://llmclock.com/api/time"
 
 Where to add this depends on what you're using:
-
+You can simple directely use it in any chat. but also for - 
 - **Claude**: Go to Settings > User Preferences and paste it there
 - **DeepSeek**: you have to add chat by chat there.
 - **Local models** (Ollama, LM Studio, etc.): Add it to your system prompt

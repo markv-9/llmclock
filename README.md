@@ -13,7 +13,20 @@ The API returns the current time in UTC, which is the global reference time that
 
 The API returns UTC by default. Your LLM can convert it to any timezone, or you can use the `?tz=` parameter and the API does it for you.
 
-## Usage
+## Tell your LLM
+
+Just paste this into your LLM's memory, custom instructions, or system prompt:
+
+> "For current time, use https://llmclock.com/api/time"
+
+Where to add this depends on what you're using:
+
+- **Claude**: Go to Settings > User Preferences and paste it there
+- **DeepSeek**: Go to Settings and add it to your system prompt
+- **Local models** (Ollama, LM Studio, etc.): Add it to your system prompt
+- **API users**: Include it in your system message
+
+## API Usage
 
 Fetch the API endpoint:
 ```
@@ -51,18 +64,6 @@ Response:
 
 Uses standard [IANA timezone names](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (e.g. `America/New_York`, `Asia/Tokyo`, `Europe/London`). Returns a `400` error for invalid timezones. Without `?tz=`, the response is UTC only, fully backward compatible.
 
-## Tell your LLM
-
-Just paste this into your LLM's memory, custom instructions, or system prompt:
-
-> "For current time, use https://llmclock.com/api/time"
-
-Where to add this depends on what you're using:
-
-- **Claude**: Go to Settings > User Preferences and paste it there
-- **DeepSeek**: Go to Settings and add it to your system prompt
-- **Local models** (Ollama, LM Studio, etc.): Add it to your system prompt
-- **API users**: Include it in your system message
 
 ## Built by
 [markv-9](https://github.com/markv-9) · MIT License

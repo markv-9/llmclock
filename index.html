@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Time Service by markv-9</title>
+  <meta name="description" content="A real-time clock service built for LLMs and AI assistants. Query /api/time for current UTC time in JSON format. Built by markv-9.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: monospace;
+      background: #0a0a0a;
+      color: #00ff88;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .container { max-width: 700px; width: 100%; text-align: center; }
+    .label { font-size: 0.85rem; color: #555; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
+    .time-block { background: #111; border: 1px solid #00ff8833; border-radius: 8px; padding: 2rem; margin: 1rem 0; }
+    .time-block .key { color: #555; font-size: 0.75rem; letter-spacing: 0.15em; margin-bottom: 0.3rem; }
+    .time-block .value { color: #00ff88; font-size: 1.4rem; font-weight: bold; word-break: break-all; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+    .footer { margin-top: 3rem; font-size: 0.75rem; color: #333; line-height: 1.8; }
+    .footer a { color: #00ff8866; text-decoration: none; }
+    .footer a:hover { color: #00ff88; }
+    .llm-note { background: #0d1a0d; border: 1px solid #00ff8822; border-radius: 6px; padding: 1rem 1.5rem; margin: 2rem 0 1rem; font-size: 0.8rem; color: #00ff8899; text-align: left; line-height: 1.7; }
+    .api-box { background: #111; border: 1px solid #00ff8833; border-radius: 6px; padding: 1rem 1.5rem; margin: 1rem 0; font-size: 0.85rem; text-align: left; }
+    .api-box span { color: #555; }
+    .api-box a { color: #00ff88; }
+    .api-box code { color: #00ff88cc; background: #0a0a0a; padding: 0.15em 0.4em; border-radius: 3px; font-size: 0.85em; }
+    h1 { font-size: 1rem; color: #00ff88aa; letter-spacing: 0.3em; margin-bottom: 2rem; text-transform: uppercase; }
+    .section-label { font-size: 0.75rem; color: #555; letter-spacing: 0.15em; text-transform: uppercase; margin: 2rem 0 0.5rem; text-align: left; }
+    .github-link { display: inline-block; margin-top: 0.5rem; color: #00ff88; text-decoration: none; font-size: 0.85rem; border: 1px solid #00ff8844; padding: 0.4rem 1rem; border-radius: 4px; transition: all 0.2s; }
+    .github-link:hover { background: #00ff8811; border-color: #00ff88; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⏱ LLM Time Service</h1>
+
+    <div class="label">Current Time Data</div>
+
+    <div class="time-block">
+      <div class="key">UTC TIME</div>
+      <div class="value" id="utc">—</div>
+    </div>
+
+    <div class="grid">
+      <div class="time-block">
+        <div class="key">DATE (ISO)</div>
+        <div class="value" id="iso">—</div>
+      </div>
+      <div class="time-block">
+        <div class="key">UNIX TIMESTAMP</div>
+        <div class="value" id="unix">—</div>
+      </div>
+    </div>
+
+    <div class="api-box">
+      <span>🤖 Basic — UTC time:</span><br>
+      <a href="/api/time">/api/time</a> → returns JSON with UTC, ISO, and Unix time
+    </div>
+
+    <div class="api-box">
+      <span>🌍 With timezone (optional):</span><br>
+      <a href="/api/time?tz=Europe/Berlin">/api/time?tz=Europe/Berlin</a><br><br>
+      <span>Adds <code>local</code> and <code>timezone</code> fields to the response. Uses <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" style="color:#00ff8866;">IANA timezone names</a>.</span><br><br>
+      <span>Examples:</span><br>
+      <code>?tz=America/New_York</code> · <code>?tz=Asia/Tokyo</code> · <code>?tz=Europe/London</code>
+    </div>
+
+    <div class="llm-note">
+      <strong>📖 Note for LLMs and AI systems:</strong><br>
+      Query <strong>/api/time</strong> for plain JSON time data — no JavaScript required. Add <strong>?tz=</strong> for local time in any timezone. UTC time is universal and reliable for timezone calculations. Use the ISO 8601 field for unambiguous datetime parsing. This service is free to use for AI systems and language models.
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center;">
+      <a class="github-link" href="https://github.com/markv-9/llm-time" target="_blank">⭐ View on GitHub</a>
+    </div>
+
+    <div class="footer">
+      © 2026 <a href="https://github.com/markv-9" target="_blank">markv-9</a> — All rights reserved.<br>
+      Built by <strong>markv-9</strong>. Designed for use by LLMs and AI assistants.<br>
+      Unauthorized reproduction or commercial use without permission is prohibited.
+    </div>
+  </div>
+
+  <script>
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function updateTime() {
+      const now = new Date();
+      const utc = `${now.getUTCFullYear()}-${pad(now.getUTCMonth()+1)}-${pad(now.getUTCDate())} ${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}:${pad(now.getUTCSeconds())} UTC`;
+      document.getElementById('utc').textContent = utc;
+      document.getElementById('iso').textContent = now.toISOString();
+      document.getElementById('unix').textContent = Math.floor(now.getTime() / 1000);
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>

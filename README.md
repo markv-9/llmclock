@@ -22,7 +22,7 @@ Just paste this into your LLM's memory, custom instructions, or system prompt:
 Where to add this depends on what you're using:
 
 - **Claude**: Go to Settings > User Preferences and paste it there
-- **DeepSeek**: Go to Settings and add it to your system prompt
+- **DeepSeek**: you have to add chat by chat there.
 - **Local models** (Ollama, LM Studio, etc.): Add it to your system prompt
 - **API users**: Include it in your system message
 
